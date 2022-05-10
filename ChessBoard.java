@@ -14,6 +14,10 @@ public class ChessBoard {
         }
     }
 
+    public int getSize(){
+        return chessBoard.length;
+    }
+
     public boolean placeQueen(int i, int j) {
         if (i < 0 || i >= chessBoard.length || j < 0 || j >= chessBoard.length) return false;
         if (chessBoard[i][j] == 1) return false;
@@ -21,14 +25,20 @@ public class ChessBoard {
         return true;
     }
 
+    public boolean removeQueen(int i, int j){
+        if (i < 0 || i >= chessBoard.length || j < 0 || j >= chessBoard.length) return false;
+        if (chessBoard[i][j] == 0) return false;
+        chessBoard[i][j] = 0;
+        return true;
+    }
+
     public boolean isValidState() {
         for (int i = 0; i < chessBoard.length; i++) {
             for (int j = 0; j < chessBoard.length; j++) {
+                // Checks for any queens horizontally or vertically
                 if (chessBoard[i][j] == 1) {
-                    for (int k = 0; k < chessBoard.length; k++) {
-
-                        // Checks for any queens horizontally or vertically
-                        if (k != j && chessBoard[i][k] == 1 || k != i && chessBoard[i][k] == 1) return false;
+                    for (int k = 0; k < chessBoard.length; k++){
+                        if ((k != i && chessBoard[k][j] == 1) || (k != j && chessBoard[i][k] == 1)) return false;
 
                         // Checks for any queens diagonally
                         for (int l = 0; l < chessBoard.length; l++) {
@@ -53,6 +63,18 @@ public class ChessBoard {
             }
         }
         return arr;
+    }
+
+    public int numberOfQueens(){
+        int counter = 0;
+        for (int i = 0; i < chessBoard.length; i++) {
+            for (int j = 0; j < chessBoard.length; j++) {
+                if (chessBoard[i][j] == 1){
+                    counter ++;
+                }
+            }
+        }
+        return counter++;
     }
 
     @Override
